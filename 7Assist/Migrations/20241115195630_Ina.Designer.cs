@@ -10,8 +10,8 @@ using _7Assist.Data;
 namespace _7Assist.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241115193238_Initial")]
-    partial class Initial
+    [Migration("20241115195630_Ina")]
+    partial class Ina
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,7 +54,7 @@ namespace _7Assist.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users_lw9_02");
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

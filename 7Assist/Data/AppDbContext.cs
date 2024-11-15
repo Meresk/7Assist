@@ -10,6 +10,6 @@ namespace _7Assist.Data
         {
         }
 
-        public DbSet<User> Users_lw9_02 { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
