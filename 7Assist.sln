@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "7Assist", "7Assist\7Assist.csproj", "{47A0EE2E-308E-4958-8E45-A8933D87C01C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotnet8", "dotnet\dotnet8.csproj", "{F445CC22-DE8E-4464-9726-B6CD1C8B6641}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiveKit.API", "dotnet\LiveKit.API.csproj", "{F445CC22-DE8E-4464-9726-B6CD1C8B6641}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
