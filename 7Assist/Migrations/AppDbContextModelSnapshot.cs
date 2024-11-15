@@ -51,7 +51,7 @@ namespace _7Assist.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users_lw9_02");
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

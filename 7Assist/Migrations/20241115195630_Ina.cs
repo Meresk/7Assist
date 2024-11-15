@@ -6,7 +6,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace _7Assist.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Ina : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace _7Assist.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Users_lw9_02",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -28,7 +28,7 @@ namespace _7Assist.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users_lw9_02", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
         }
@@ -37,7 +37,7 @@ namespace _7Assist.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Users_lw9_02");
+                name: "Users");
         }
     }
 }
