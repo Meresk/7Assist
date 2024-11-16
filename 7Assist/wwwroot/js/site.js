@@ -169,12 +169,12 @@ async function getToken(roomName, participantName) {
         body: JSON.stringify({
             roomName,
             participantName
-        })
+        }),
+        credentials: 'include' // Включаем отправку куков
     });
 
     if (!response.ok) {
-        const error = await response.json();
-        throw new Error(`Failed to get token: ${error.errorMessage}`);
+        throw new Error('getToken error');
     }
 
     const token = await response.json();
