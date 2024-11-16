@@ -44,13 +44,15 @@ async function joinRoom2() {
     });
 
     try {
-        const roomName = (await getUserClaims()).toString();
+        const roomName = "all_users";
         const userName = (await getUserClaims()).toString();
 
         const token = await getToken(roomName, userName);
 
         await room.connect(LIVEKIT_URL, token);
-        await room.localParticipant.enableCameraAndMicrophone();
+        const p = room.localParticipant;
+        await p.setCameraEnabled(true);
+        await p.setMicrophoneEnabled(false);
         const localVideoTrack = this.room.localParticipant.videoTrackPublications.values().next().value.track;
         addTrack(localVideoTrack, userName, true);
     } catch (error) {
@@ -87,6 +89,39 @@ async function joinRoom() {
         document.getElementById("join").hidden = true;
         document.getElementById("room").hidden = false;
         await room.localParticipant.enableCameraAndMicrophone();
+        const localVideoTrack = this.room.localParticipant.videoTrackPublications.values().next().value.track;
+        addTrack(localVideoTrack, userName, true);
+    } catch (error) {
+        console.log("There was an error connecting to the room:", error.message);
+        //await leaveRoom();
+    }
+}
+async function joinRoomWithAll() {
+    room = new LivekitClient.Room();
+
+    room.on(LivekitClient.RoomEvent.TrackSubscribed, (track, _publication, participant) => {
+        addTrack(track, participant.identity);
+    });
+
+    room.on(LivekitClient.RoomEvent.TrackUnsubscribed, (track, _publication, participant) => {
+        track.detach();
+        document.getElementById(track.sid)?.remove();
+
+        if (track.kind === "video") {
+            removeVideoContainer(participant.identity);
+        }
+    });
+
+    try {
+        const roomName = "all_users";
+        const userName = (await getUserClaims()).toString();
+
+        const token = await getToken(roomName, userName);
+
+        await room.connect(LIVEKIT_URL, token);
+        document.getElementById("room-title").innerText = roomName;
+        document.getElementById("join").hidden = true;
+        document.getElementById("room").hidden = false;
         const localVideoTrack = this.room.localParticipant.videoTrackPublications.values().next().value.track;
         addTrack(localVideoTrack, userName, true);
     } catch (error) {

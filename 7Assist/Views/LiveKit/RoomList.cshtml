@@ -1,196 +1,29 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveKit Rooms</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+﻿@using System.Security.Claims
+@{
+    var defaultIssuerClaim = Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+}
 
-        .container {
-            width: 80%;
-            margin-top: 20px;
-        }
-
-        .room-list {
-            margin-top: 20px;
-        }
-
-        .room-item {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .join-btn {
-            padding: 5px 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        .join-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        #layout-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .video-container {
-            width: 300px;
-            height: 200px;
-            background: black;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            border: 1px solid #ccc;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>LiveKit Rooms</h1>
-        <div id="join" class="room-list">
-            <h2>Available Rooms</h2>
-            <div id="room-list">
-                <!-- Rooms will be populated here -->
-            </div>
-        </div>
-
-        <div id="room" class="hidden">
-            <h2>Room: <span id="room-title"></span></h2>
-            <button onclick="leaveRoom()">Leave Room</button>
-            <div id="layout-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/livekit-client@2.5.9/dist/livekit-client.umd.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        joinRoomWithAll();
+    });
+</script>
+<main>
+    <div id="join">
+        <div id="join-dialog">
+            <h2>Связь с техподдержкой</h2>
+            <form onsubmit="joinRoom(); return false">
+                <button id="join-button" class="btn btn-lg btn-success" type="submit">Связаться</button>
+            </form>
         </div>
     </div>
 
-    <script>
-        var APPLICATION_SERVER_URL = "http://localhost:6080/";
-        var LIVEKIT_URL = "wss://haha-1b7hsnu1.livekit.cloud";
-        configureUrls();
-
-        var room;
-
-        function configureUrls() {
-            if (!APPLICATION_SERVER_URL) {
-                APPLICATION_SERVER_URL = window.location.hostname === "localhost"
-                    ? "http://localhost:6080/"
-                    : "http://localhost:6080/";
-            }
-
-            if (!LIVEKIT_URL) {
-                LIVEKIT_URL = window.location.hostname === "localhost"
-                    ? "ws://localhost:7880/"
-                    : "wss://" + window.location.hostname + ":7443/";
-            }
-        }
-
-        async function fetchRooms() {
-            const response = await fetch(APPLICATION_SERVER_URL + "api/Rooms", {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-
-            if (!response.ok) {
-                console.error("Failed to fetch rooms");
-                return [];
-            }
-
-            return await response.json();
-        }
-
-        async function populateRoomList() {
-            const rooms = await fetchRooms();
-            const roomList = document.getElementById("room-list");
-            roomList.innerHTML = "";
-
-            rooms.forEach((roomName) => {
-                const roomItem = document.createElement("div");
-                roomItem.className = "room-item";
-
-                const roomNameSpan = document.createElement("span");
-                roomNameSpan.innerText = roomName;
-
-                const joinButton = document.createElement("button");
-                joinButton.className = "join-btn";
-                joinButton.innerText = "Join";
-                joinButton.onclick = () => joinRoom(roomName);
-
-                roomItem.appendChild(roomNameSpan);
-                roomItem.appendChild(joinButton);
-                roomList.appendChild(roomItem);
-            });
-        }
-
-        async function joinRoom(roomName) {
-            try {
-                const userName = "User" + Math.floor(Math.random() * 100);
-                const token = await getToken(roomName, userName);
-
-                room = new LivekitClient.Room();
-                await room.connect(LIVEKIT_URL, token);
-
-                document.getElementById("room-title").innerText = roomName;
-                document.getElementById("join").classList.add("hidden");
-                document.getElementById("room").classList.remove("hidden");
-
-                await room.localParticipant.enableCameraAndMicrophone();
-            } catch (error) {
-                console.error("Failed to join room:", error);
-            }
-        }
-
-        async function leaveRoom() {
-            await room.disconnect();
-            document.getElementById("room").classList.add("hidden");
-            document.getElementById("join").classList.remove("hidden");
-            populateRoomList();
-        }
-
-        async function getToken(roomName, participantName) {
-            const response = await fetch(APPLICATION_SERVER_URL + "api/Token", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ roomName, participantName })
-            });
-
-            if (!response.ok) {
-                const error = await response.json();
-                throw new Error(`Failed to get token: ${error.errorMessage}`);
-            }
-
-            return (await response.json()).token;
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            populateRoomList();
-        });
-    </script>
-</body>
-</html>
+    <div id="room">
+        <div id="room-header">
+            <h2 id="room-title"></h2>
+            <button class="btn btn-danger" id="leave-room-button" onclick="leaveRoom()">Leave Room</button>
+        </div>
+        <div id="layout-container"></div>
+    </div>
+</main>
