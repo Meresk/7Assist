@@ -10,7 +10,10 @@ namespace _7Assist.Controllers
         }
         public IActionResult Room()
         {
-
+            return View();
+        }
+        public IActionResult RoomList()
+        {
             return View();
         }
     }

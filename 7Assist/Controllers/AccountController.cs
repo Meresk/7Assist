@@ -75,7 +75,7 @@ namespace _7Assist.Controllers
 
             Response.Cookies.Append("A", _tokenService.CreateToken(userExist));
 
-            return Redirect("~/");
+            return RedirectToAction("Index", "LiveKit");
         }
 
         [HttpPost]
