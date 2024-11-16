@@ -26,7 +26,7 @@ function configureUrls() {
         }
     }
 }
-async function joinRoom2() {
+async function joinRoomHidden() {
 
     room = new LivekitClient.Room();
     try {
