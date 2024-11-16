@@ -43,7 +43,7 @@ async function joinRoomHidden() {
         console.log("There was an error connecting to the room:", error.message);
     }
 }
-async function joinRoom() {
+async function joinRoom(name = null) {
     document.getElementById("join-button").disabled = true;
     document.getElementById("join-button").innerText = "Joining...";
 
@@ -63,7 +63,7 @@ async function joinRoom() {
     });
 
     try {
-        const roomName = (await getUserClaims()).toString();
+        const roomName = name === null ? (await getUserClaims()).toString() : name;
         const userName = (await getUserClaims()).toString();
 
         const token = await getToken(roomName, userName);
@@ -210,12 +210,12 @@ async function getToken(roomName, participantName) {
         body: JSON.stringify({
             roomName,
             participantName
-        })
+        }),
+        credentials: 'include' // Включаем отправку куков
     });
 
     if (!response.ok) {
-        const error = await response.json();
-        throw new Error(`Failed to get token: ${error.errorMessage}`);
+        throw new Error('getToken error');
     }
 
     const token = await response.json();

@@ -10,7 +10,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("_myAllowSpecificOrigins", builder =>
     {
-        builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+        builder.WithOrigins("http://localhost:5221")  // Разрешаем запросы только с этого домена
+               .AllowAnyHeader()  // Разрешаем любые заголовки
+               .AllowAnyMethod()  // Разрешаем любые методы
+               .AllowCredentials();  // Разрешаем использование cookies в запросах
     });
 });
 
