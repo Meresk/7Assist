@@ -26,22 +26,14 @@ function configureUrls() {
         }
     }
 }
+async function joinRoom2() {
 
-async function joinRoom() {
-    // Disable 'Join' button
-    document.getElementById("join-button").disabled = true;
-    document.getElementById("join-button").innerText = "Joining...";
-
-    // Initialize a new Room object
     room = new LivekitClient.Room();
 
-    // Specify the actions when events take place in the room
-    // On every new Track received...
     room.on(LivekitClient.RoomEvent.TrackSubscribed, (track, _publication, participant) => {
         addTrack(track, participant.identity);
     });
 
-    // On every new Track destroyed...
     room.on(LivekitClient.RoomEvent.TrackUnsubscribed, (track, _publication, participant) => {
         track.detach();
         document.getElementById(track.sid)?.remove();
@@ -52,22 +44,48 @@ async function joinRoom() {
     });
 
     try {
-        // Get the room name and participant name from the form
-        const roomName = document.getElementById("room-name").value;
-        const userName = document.getElementById("participant-name").value;
+        const roomName = (await getUserClaims()).toString();
+        const userName = (await getUserClaims()).toString();
 
-        // Get a token from your application server with the room name and participant name
         const token = await getToken(roomName, userName);
 
-        // Connect to the room with the LiveKit URL and the token
         await room.connect(LIVEKIT_URL, token);
+        await room.localParticipant.enableCameraAndMicrophone();
+        const localVideoTrack = this.room.localParticipant.videoTrackPublications.values().next().value.track;
+        addTrack(localVideoTrack, userName, true);
+    } catch (error) {
+        console.log("There was an error connecting to the room:", error.message);
+    }
+}
+async function joinRoom() {
+    document.getElementById("join-button").disabled = true;
+    document.getElementById("join-button").innerText = "Joining...";
 
-        // Hide the 'Join room' page and show the 'Room' page
+    room = new LivekitClient.Room();
+
+    room.on(LivekitClient.RoomEvent.TrackSubscribed, (track, _publication, participant) => {
+        addTrack(track, participant.identity);
+    });
+
+    room.on(LivekitClient.RoomEvent.TrackUnsubscribed, (track, _publication, participant) => {
+        track.detach();
+        document.getElementById(track.sid)?.remove();
+
+        if (track.kind === "video") {
+            removeVideoContainer(participant.identity);
+        }
+    });
+
+    try {
+        const roomName = (await getUserClaims()).toString();
+        const userName = (await getUserClaims()).toString();
+
+        const token = await getToken(roomName, userName);
+
+        await room.connect(LIVEKIT_URL, token);
         document.getElementById("room-title").innerText = roomName;
         document.getElementById("join").hidden = true;
         document.getElementById("room").hidden = false;
-
-        // Publish your camera and microphone
         await room.localParticipant.enableCameraAndMicrophone();
         const localVideoTrack = this.room.localParticipant.videoTrackPublications.values().next().value.track;
         addTrack(localVideoTrack, userName, true);
@@ -80,9 +98,6 @@ async function joinRoom() {
 function addTrack(track, participantIdentity, local = false) {
     const element = track.attach();
     element.id = track.sid;
-
-    /* If the track is a video track, we create a container and append the video element to it 
-    with the participant's identity */
     if (track.kind === "video") {
         const videoContainer = createVideoContainer(participantIdentity, local);
         videoContainer.append(element);
@@ -93,17 +108,10 @@ function addTrack(track, participantIdentity, local = false) {
 }
 
 async function leaveRoom() {
-    // Leave the room by calling 'disconnect' method over the Room object
     await room.disconnect();
-
-    // Remove all HTML elements inside the layout container
     removeAllLayoutElements();
-
-    // Back to 'Join room' page
     document.getElementById("join").hidden = false;
     document.getElementById("room").hidden = true;
-
-    // Enable 'Join' button
     document.getElementById("join-button").disabled = false;
     document.getElementById("join-button").innerText = "Join!";
 }
@@ -112,7 +120,21 @@ function generateFormValues() {
     document.getElementById("room-name").value = "Test Room";
     document.getElementById("participant-name").value = "Participant" + Math.floor(Math.random() * 100);
 }
+async function getUserClaims() {
+    const response = await fetch('/claims', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 
+    if (!response.ok) {
+        throw new Error('Failed to fetch claims');
+    }
+
+    const claims = await response.json();
+    return claims
+}
 function createVideoContainer(participantIdentity, local = false) {
     const videoContainer = document.createElement("div");
     videoContainer.id = `camera-${participantIdentity}`;
