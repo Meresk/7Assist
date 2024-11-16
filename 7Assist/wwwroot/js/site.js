@@ -29,20 +29,6 @@ function configureUrls() {
 async function joinRoom2() {
 
     room = new LivekitClient.Room();
-
-    room.on(LivekitClient.RoomEvent.TrackSubscribed, (track, _publication, participant) => {
-        addTrack(track, participant.identity);
-    });
-
-    room.on(LivekitClient.RoomEvent.TrackUnsubscribed, (track, _publication, participant) => {
-        track.detach();
-        document.getElementById(track.sid)?.remove();
-
-        if (track.kind === "video") {
-            removeVideoContainer(participant.identity);
-        }
-    });
-
     try {
         const roomName = "all_users";
         const userName = (await getUserClaims()).toString();
@@ -53,8 +39,6 @@ async function joinRoom2() {
         const p = room.localParticipant;
         await p.setCameraEnabled(true);
         await p.setMicrophoneEnabled(false);
-        const localVideoTrack = this.room.localParticipant.videoTrackPublications.values().next().value.track;
-        addTrack(localVideoTrack, userName, true);
     } catch (error) {
         console.log("There was an error connecting to the room:", error.message);
     }
