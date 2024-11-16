@@ -58,7 +58,7 @@ namespace _7Assist.Controllers
 
         public IActionResult Login()
         {
-            return View();
+            return PartialView();
         }
 
         [HttpPost]

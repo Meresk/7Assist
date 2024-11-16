@@ -1,38 +1,56 @@
 ﻿@model _7Assist.Models.User
 
-@{
-    ViewData["Title"] = "Login";
-}
 
-<h1>Login</h1>
-
-<h4>User</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Login">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Login" class="control-label"></label>
-                <input asp-for="Login" class="form-control" />
-                <span asp-validation-for="Login" class="text-danger"></span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Страница авторизации - _7Assist</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/_7Assist.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <link rel="stylesheet" href="~/css/login.css">
+    <div class="container-fluid">
+        <div class="trapezoid-right">
+            <div class="large-text-white">7Assist</div>
+        </div>
+        <div class="login-container">
+            <img src="~/images/logo.svg" class="logo" alt="Логотип">
+            <div class="login-box">
+                <h2 class="h2-text text-center mt-5 mb-5">Вход</h2>
+                <form class="d-flex flex-column align-items-center" asp-action="Login">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <input asp-for="Login" type="text" class="form-control enter-input mb-3" placeholder="Логин" required>
+                        <span asp-validation-for="Login" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Password" type="password" class="form-control enter-input mb-3" placeholder="Пароль" required>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-check d-flex justify-content-between align-items-center w-100">
+                        <div>
+                            <input type="checkbox" class="form-check-input" id="remember">
+                            <label class="form-check-label" for="remember">Запомнить меня</label>
+                        </div>
+                        <a href="#" class="text-primary">Забыли пароль?</a>
+                    </div>
+                    <button type="submit" class="btn btn-custom-primary mt-5 mb-4">Авторизоваться</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+        <div class="large-text">7Assist</div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

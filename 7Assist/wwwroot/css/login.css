@@ -1,0 +1,136 @@
+﻿@font-face {
+    font-family: 'Russo One';
+    src: url('../fonts/RussoOne-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    font-family: 'Russo One';
+    overflow: hidden;
+}
+
+.trapezoid-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2F4597; /* Синий цвет фона */
+    clip-path: polygon(55% 0, 100% 0, 100% 100%, 40% 100%); /* Обрезка по границе */
+    z-index: 2; /* Убедитесь, что этот элемент ниже текста */
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.login-box {
+    background-color: #EFEFEF;
+    padding: 3rem;
+    width: 716px;
+    box-shadow: inset 0px 16px 32px -8px rgba(12, 12, 13, 0.4);
+    border-radius: 46px;
+    z-index: 3;
+}
+
+.form-group {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.logo {
+    position: absolute;
+    top: 40px;
+    right: 70px;
+    width: 42%;
+    height: auto;
+    z-index: 1;
+}
+
+.h2-text {
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 77px;
+    letter-spacing: 0.08em;
+    color: #3F3F3F;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.enter-input {
+    height: 49px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 650px;
+    box-sizing: border-box;
+}
+
+.btn-custom-primary { 
+    color: #fff;
+    background-color: #0DCA6F; /* Зеленый цвет */
+    border-color: #0DCA6F; /* Цвет границы */
+    height: 60px; /* Увеличьте высоту кнопки */
+    width: 100%; /* Установите ширину кнопки на 100% */
+    max-width: 230px; /* Установите максимальную ширину для кнопки */
+    border-radius: 8px; /* Радиус границ, если нужно */
+    margin-top: 20px; /* Отступ сверху для отделения от полей ввода */
+}
+
+.btn-custom-primary:hover {
+    color: #fff;
+}
+
+/* Изменение цвета кнопки при нажатии */
+.btn-custom-primary:active {
+    color: #fff;
+    background-color: #B0B7ED; /* Более темный зеленый цвет */
+    border-color: #B0B7ED; /* Цвет границы при нажатии */
+}
+
+/* Дополнительные стили для формы */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрирование элементов */
+    width: 100%; /* Занять всю ширину контейнера */
+}
+
+.large-text {
+    position: absolute; /* Позиционирование относительно родителя */
+    bottom: 20px; /* Отступ от нижней части */
+    left: 20px; /* Отступ от левой части */
+    font-family: 'Russo One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 190px;
+    line-height: 254px;
+    letter-spacing: 0.09em;
+    color: #2F4597; /* Синий цвет текста */
+    z-index: 1; /* Убедитесь, что текст выше фона */
+}
+
+.large-text-white {
+    width: 100%;
+    height: auto; /* Измените на auto, чтобы текст занимал только необходимую высоту */
+    position: absolute; /* Позиционирование относительно родителя */
+    bottom: 20px; /* Отступ от нижней части */
+    left: 20px; /* Отступ от левой части */
+    font-family: 'Russo One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 190px;
+    line-height: 254px;
+    letter-spacing: 0.09em;
+    color: #FFFFFF; /* Белый цвет текста */
+    z-index: 1; /* Убедитесь, что белый текст выше синего */
+}
