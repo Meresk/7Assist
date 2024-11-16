@@ -63,7 +63,7 @@ async function joinRoom(name = null) {
     });
 
     try {
-        const roomName = name === null ? (await getUserClaims()).toString() : name;
+        const roomName = name === null ? (await getUserClaims()).toString() : name.toString();
         const userName = (await getUserClaims()).toString();
 
         const token = await getToken(roomName, userName);
@@ -120,7 +120,8 @@ function addTrack(track, participantIdentity, local = false) {
     if (track.kind === "video") {
         const videoContainer = createVideoContainer(participantIdentity, local);
         videoContainer.append(element);
-        appendParticipantData(videoContainer, participantIdentity + (local ? " (You)" : ""));
+        appendParticipantData(videoContainer, participantIdentity); 
+        //+ (local ? " (You)" : "")
     } else {
         document.getElementById("layout-container").append(element);
     }
@@ -157,7 +158,7 @@ async function getUserClaims() {
 function createVideoContainer(participantIdentity, local = false) {
     const videoContainer = document.createElement("div");
     videoContainer.id = `camera-${participantIdentity}`;
-    videoContainer.className = "video-container";
+    videoContainer.className = "video-container" + (local ? "-you" : "");
     const layoutContainer = document.getElementById("layout-container");
 
     if (local) {
@@ -172,7 +173,7 @@ function createVideoContainer(participantIdentity, local = false) {
 function appendParticipantData(videoContainer, participantIdentity) {
     const dataElement = document.createElement("div");
     dataElement.className = "participant-data";
-    dataElement.innerHTML = `<p>${participantIdentity}</p>`;
+    dataElement.innerHTML = `<a href="/room2/?roomname=${participantIdentity}">${participantIdentity}</a>`;
     videoContainer.prepend(dataElement);
 }
 

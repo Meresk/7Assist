@@ -12,6 +12,12 @@ namespace _7Assist.Controllers
         {
             return View();
         }
+        [HttpGet("room2")]
+        public IActionResult Room(string roomName)
+        {
+            ViewBag.RoomName = roomName; 
+            return View();
+        }
         public IActionResult RoomList()
         {
             return View();

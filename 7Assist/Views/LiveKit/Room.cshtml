@@ -1,14 +1,30 @@
 ﻿@using System.Security.Claims
 @{
-        var defaultIssuerClaim = Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+    var defaultIssuerClaim = Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+    var roomName = ViewBag.RoomName;
 }
 
 <script src="https://cdn.jsdelivr.net/npm/livekit-client@2.5.9/dist/livekit-client.umd.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        joinRoomHidden();
-    });
-</script>
+<script src="~/js/livekit-client.umd.js"></script>
+
+@if (roomName == null)
+{
+    <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+            joinRoomHidden();
+        });
+    </script>
+}
+else
+{
+    Console.WriteLine(roomName);
+        <script>
+             document.addEventListener("DOMContentLoaded", () => {
+                 joinRoom(@roomName);
+             });
+    </script>    
+}
 <main>
     <div id="join">
         <div id="join-dialog">
