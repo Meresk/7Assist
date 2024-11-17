@@ -1,3 +1,4 @@
 ﻿@{
-    Layout = "_Layout";
+    var userRole = User.IsInRole("Admin") ? "Admin" : "Terminal";
+    Layout = userRole == "Admin" ? "_LayoutAdmin" : "_LayoutTerminal";
 }

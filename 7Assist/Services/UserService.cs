@@ -1,5 +1,6 @@
 ﻿using _7Assist.Data;
 using _7Assist.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace _7Assist.Services
 {
@@ -9,7 +10,7 @@ namespace _7Assist.Services
 
         public User? UserVerify(User user)
         {
-            var userExist = _dbContext.Users.FirstOrDefault(u => u.Login == user.Login);
+            var userExist = _dbContext.Users.Include(u => u.Admin).Include(u => u.Terminal).FirstOrDefault(u => u.Login == user.Login);
 
             if (userExist != null && BCrypt.Net.BCrypt.Verify(user.Password, userExist.Password))
             {

@@ -1,0 +1,81 @@
+﻿@font-face {
+    font-family: 'Russo One';
+    src: url('assets\\RussoOne-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Для body и html убираем отступы */
+body, html {
+    font-family: 'Russo One', sans-serif; /*Шрифт для страницы*/
+}
+
+/* Устанавливаем стили для контейнера */
+.split-container {
+    display: flex; /* Горизонтальное разделение */
+    height: 100vh; /* Высота контейнера равна высоте окна браузера */
+    width: 100vw; /* Ширина контейнера равна ширине окна браузера */
+}
+
+/* Синяя часть */
+.blue-section {
+    width: 200px; /* Фиксированная ширина синей части */
+    background-color: #2f4597; /* Синий фон */
+    flex-direction: column; /* Вертикальное расположение содержимого */
+    color: white; /* Белый текст */
+    font-family: 'Russo One', sans-serif; /* Шрифт Russo One */
+    justify-content: flex-start; /* Текст остаётся наверху */
+    align-items: center; /* Горизонтальное центрирование содержимого */
+}
+
+/* Секция с кнопками */
+.buttons-container {
+    display: flex;
+    flex-direction: column; /* Располагаем кнопки в столбик */
+    width: 100%; /* Ширина кнопок совпадает с шириной синей части */
+    gap: 7px; /* Промежуток между кнопками */
+}
+
+/* Кнопки */
+.button {
+    width: 100%; /* Полная ширина кнопки */
+    height: 46px;
+    text-align: left; /* Выравнивание текста */
+    border: none; /* Убираем рамки */
+    background-color: #B0B7ED; /*  фон */
+    color: black; /* Чёрный текст */
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+    /* Убираем обводку при фокусе */
+    .button:focus {
+        outline: none; /* Убираем стандартную обводку при фокусе */
+    }
+
+    /* Активная кнопка */
+    .button.active {
+        background-color: #ffffff; /* фон */
+        border-color: #ffffff; /* Цвет границы при нажатии */
+        color: black; /* текст */
+        margin-right: -10px; /* Выступ за границу синей части */
+    }
+
+/* Изменение цвета кнопки при нажатии */
+.button-click:active {
+    color: #888888;
+}
+
+/* Кнопка при наведении */
+.button:hover {
+    background-color: #f0f0f0; /* Слегка выделяется при наведении */
+}
+
+/* Заголовок "7Assist" */
+.blue-section .header {
+    padding: 10px; /* Отступ сверху */
+    text-align: center; /* Центрирование текста */
+    font-size: 28px; /* Размер текста */
+}

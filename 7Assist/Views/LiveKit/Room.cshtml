@@ -1,0 +1,45 @@
+﻿@using System.Security.Claims
+@{
+    var defaultIssuerClaim = Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+    var roomName = ViewBag.RoomName;
+}
+
+<script src="https://cdn.jsdelivr.net/npm/livekit-client@2.5.9/dist/livekit-client.umd.js"></script>
+<script src="~/js/livekit-client.umd.js"></script>
+
+@if (roomName == null)
+{
+    <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+            joinRoomHidden();
+        });
+    </script>
+}
+else
+{
+    Console.WriteLine(roomName);
+        <script>
+             document.addEventListener("DOMContentLoaded", () => {
+                 joinRoom(@roomName);
+             });
+    </script>    
+}
+<main>
+    <div id="join">
+        <div id="join-dialog">
+            <h2>Связь с техподдержкой</h2>
+            <form onsubmit="joinRoom(); return false">
+                <button id="join-button" class="btn btn-lg btn-success" type="submit">Связаться</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="room" hidden>
+        <div id="room-header">
+            <h2 id="room-title"></h2>
+            <button class="btn btn-danger" id="leave-room-button" onclick="leaveRoom()">Leave Room</button>
+        </div>
+        <div id="layout-container"></div>
+    </div>
+</main>

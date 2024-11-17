@@ -1,0 +1,39 @@
+﻿@model ICollection<_7Assist.Models.Terminal>
+
+@using System.Security.Claims;
+@{
+    var defaultIssuerClaim = Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+}
+<link rel="stylesheet" href="~/css/terminals.css">
+<script src="https://cdn.jsdelivr.net/npm/livekit-client@2.5.9/dist/livekit-client.umd.js"></script>
+<script src="~/js/livekit-client.umd.js"></script>
+
+<main>
+    <div id="join">
+        <div id="join-dialog">
+            <h2>Связь с техподдержкой</h2>
+            <form onsubmit="joinRoom(); return false">
+                <button id="join-button" class="btn btn-lg btn-success" type="submit">Связаться</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="room">
+        <div id="room-header">
+            <h2 id="room-title"></h2>
+            <button class="btn btn-danger" id="leave-room-button" onclick="leaveRoom()">Leave Room</button>
+        </div>
+        <div id="layout-container">
+            @foreach (var terminal in Model)
+            {
+                @Html.Partial("TerminalCard", terminal)
+            }
+        </div>
+    </div>
+</main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        joinRoomWithAll();
+    });
+</script>
