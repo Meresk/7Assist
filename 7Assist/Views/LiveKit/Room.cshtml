@@ -1,6 +1,6 @@
 ﻿@using System.Security.Claims
 @{
-    var defaultIssuerClaim = Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+    var defaultIssuerClaim = Context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
     var roomName = ViewBag.RoomName;
 }
 

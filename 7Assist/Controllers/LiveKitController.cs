@@ -1,10 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using _7Assist.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace _7Assist.Controllers
 {
     public class LiveKitController : Controller
     {
+        private readonly AppDbContext _context;
+
+        public LiveKitController(AppDbContext context) 
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
             return View();
@@ -21,9 +29,10 @@ namespace _7Assist.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public IActionResult RoomList()
+        public async Task<IActionResult>RoomList()
         {
-            return View();
+            var terminals = _context.Terminals;
+            return View(await terminals.ToListAsync());
         }
     }
 }

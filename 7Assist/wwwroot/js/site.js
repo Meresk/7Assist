@@ -159,13 +159,8 @@ function createVideoContainer(participantIdentity, local = false) {
     const videoContainer = document.createElement("div");
     videoContainer.id = `camera-${participantIdentity}`;
     videoContainer.className = "video-container" + (local ? "-you" : "");
-    const layoutContainer = document.getElementById("layout-container");
-
-    if (local) {
-        layoutContainer.prepend(videoContainer);
-    } else {
-        layoutContainer.append(videoContainer);
-    }
+    const layoutContainer = document.getElementById("card-" + participantIdentity) == null ? document.getElementById("layout-container") : document.getElementById("card-" + participantIdentity);
+    layoutContainer.prepend(videoContainer);
 
     return videoContainer;
 }

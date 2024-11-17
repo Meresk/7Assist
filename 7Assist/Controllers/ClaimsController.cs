@@ -8,7 +8,7 @@ namespace _7Assist.Controllers
         [HttpGet("claims")]
         public IActionResult GetClaims()
         {
-            var claims = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+            var claims = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
             return Ok(claims);
         }
