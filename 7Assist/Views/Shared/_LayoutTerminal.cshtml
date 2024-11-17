@@ -8,21 +8,8 @@
     <link rel="stylesheet" href="~/css/layout.css">
 </head>
 <body>
-    <div class="split-container">
-        <div class="blue-section">
-            <div class="header">
-                <h1>7Assist</h1>
-            </div>
-            <div class="buttons-container">
-                <button class="button button-click active">Терминалы</button>
-                <button class="button button-click">Чаты</button>
-                <button class="button button-click">Записи</button>
-                <button class="button button-click">Настройки</button>
-            </div>
-        </div>
-        <div id="terminals" class="content-section">
-                @RenderBody()
-        </div>
+    <div class="container body-content">
+        @RenderBody()
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

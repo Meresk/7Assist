@@ -72,7 +72,9 @@ namespace _7Assist.Controllers
 
             Response.Cookies.Append("A", _tokenService.CreateToken(userExist));
 
-            return RedirectToAction("Index", "LiveKit");
+            if(userExist.Admin == null)
+                return RedirectToAction("Room", "LiveKit");
+            return RedirectToAction("RoomList", "LiveKit");
         }
 
         [HttpPost]

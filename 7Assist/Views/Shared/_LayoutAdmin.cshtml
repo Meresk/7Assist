@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/layout.css">
+</head>
+<body>
+    <div class="split-container">
+        <div class="blue-section">
+            <div class="header">
+                <h1>7Assist</h1>
+            </div>
+            <div class="buttons-container">
+                <button class="button button-click active">Терминалы</button>
+                <button class="button button-click">Чаты</button>
+                <button class="button button-click">Записи</button>
+                <button class="button button-click">Настройки</button>
+            </div>
+        </div>
+        <div class="container body-content">
+                @RenderBody()
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
