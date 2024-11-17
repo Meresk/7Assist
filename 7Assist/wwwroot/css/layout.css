@@ -1,0 +1,187 @@
+﻿@font-face {
+    font-family: 'Russo One';
+    src: url('assets\\RussoOne-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Для body и html убираем отступы */
+body, html {
+    font-family: 'Russo One', sans-serif; /*Шрифт для страницы*/
+}
+
+/* Устанавливаем стили для контейнера */
+.split-container {
+    display: flex; /* Горизонтальное разделение */
+    height: 100vh; /* Высота контейнера равна высоте окна браузера */
+    width: 100vw; /* Ширина контейнера равна ширине окна браузера */
+}
+
+/* Синяя часть */
+.blue-section {
+    width: 200px; /* Фиксированная ширина синей части */
+    background-color: #2f4597; /* Синий фон */
+    flex-direction: column; /* Вертикальное расположение содержимого */
+    color: white; /* Белый текст */
+    font-family: 'Russo One', sans-serif; /* Шрифт Russo One */
+    justify-content: flex-start; /* Текст остаётся наверху */
+    align-items: center; /* Горизонтальное центрирование содержимого */
+}
+
+/* Секция с кнопками */
+.buttons-container {
+    display: flex;
+    flex-direction: column; /* Располагаем кнопки в столбик */
+    width: 100%; /* Ширина кнопок совпадает с шириной синей части */
+    gap: 7px; /* Промежуток между кнопками */
+}
+
+/* Кнопки */
+.button {
+    width: 100%; /* Полная ширина кнопки */
+    height: 46px;
+    text-align: left; /* Выравнивание текста */
+    border: none; /* Убираем рамки */
+    background-color: #B0B7ED; /*  фон */
+    color: black; /* Чёрный текст */
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+    /* Убираем обводку при фокусе */
+    .button:focus {
+        outline: none; /* Убираем стандартную обводку при фокусе */
+    }
+
+    /* Активная кнопка */
+    .button.active {
+        background-color: #ffffff; /* фон */
+        border-color: #ffffff; /* Цвет границы при нажатии */
+        color: black; /* текст */
+        margin-right: -10px; /* Выступ за границу синей части */
+    }
+
+/* Изменение цвета кнопки при нажатии */
+.button-click:active {
+    color: #888888;
+}
+
+/* Кнопка при наведении */
+.button:hover {
+    background-color: #f0f0f0; /* Слегка выделяется при наведении */
+}
+
+/* Заголовок "7Assist" */
+.blue-section .header {
+    padding: 10px; /* Отступ сверху */
+    text-align: center; /* Центрирование текста */
+    font-size: 28px; /* Размер текста */
+}
+
+
+
+
+
+/* Стили для секции Терминалов */
+#terminals {
+    padding: 20px;
+}
+
+/* Стили для карточки */
+.card {
+    border-radius: 20px;
+    background: #E8E8E8;
+    border: none;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Стили для контейнера с видео */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* Соотношение сторон 16:9 для видео */
+    border-radius: 20px;
+    border: 2px solid #B9B9B9;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+    .video-container video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+/* Стили для информации карточки */
+.card-info {
+    margin-top: 15px;
+    color: #2F4597;
+    font-size: 24px;
+    font-style: normal;
+}
+
+    .card-info h2 {
+        font-size: 20px;
+    }
+
+    .card-info p {
+        font-size: 16px;
+        color: #555;
+    }
+
+/* Стили для кнопки Свободно */
+.status-btn.free {
+    background-color: #DEE1F9;
+    width: 193px;
+    height: 39px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    color: #585858;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.1s ease;
+    text-align: center;
+}
+
+.status-btn.call {
+    background-color: #0DCA6F;
+    width: 193px;
+    height: 39px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    color: #FFFfff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.1s ease;
+    text-align: center;
+}
+
+
+
+
+.button-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Изменение цвета кнопки при нажатии */
+.status-btn-click:active {
+    background: #B0B7ED;
+    color: #ffffff;
+}
+
+/* Убираем обводку при фокусе */
+.status-btn:focus {
+    outline: none; /* Убираем стандартную обводку при фокусе */
+}
