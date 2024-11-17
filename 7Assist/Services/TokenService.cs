@@ -22,7 +22,8 @@ namespace _7Assist.Services
             var claims = new List<Claim>
             {
                new Claim(ClaimTypes.Name, user.Login),
-               new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+               new Claim(ClaimTypes.NameIdentifier, user.IdUser.ToString()),
+               new Claim(ClaimTypes.Role, user.Admin == null ? "Terminal" : "Admin")
             };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);

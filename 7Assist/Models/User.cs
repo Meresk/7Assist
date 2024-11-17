@@ -1,25 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
-namespace _7Assist.Models
+namespace _7Assist.Models;
+
+public partial class User
 {
-    public class User
-    {
-        [Key]
-        public int Id { get; set; }
+    public int IdUser { get; set; }
 
-        [Required, StringLength(155)]
-        public string Name { get; set; }
+    public string Login { get; set; } = null!;
 
-        [Required, StringLength(155)]
-        public string Surname { get; set; }
+    public string Password { get; set; } = null!;
 
-        [Required, StringLength(155)]
-        public string Patronymic { get; set; }
+    public virtual Admin? Admin { get; set; }
 
-        [Required, StringLength(155)]
-        public string Login { get; set; }
-
-        [Required, StringLength(255)]
-        public string Password { get; set; }
-    }
+    public virtual Terminal? Terminal { get; set; }
 }

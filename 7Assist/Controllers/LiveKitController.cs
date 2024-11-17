@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace _7Assist.Controllers
 {
@@ -18,6 +19,8 @@ namespace _7Assist.Controllers
             ViewBag.RoomName = roomName; 
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult RoomList()
         {
             return View();

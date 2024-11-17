@@ -37,9 +37,6 @@ namespace _7Assist.Controllers
             {
                 var CreateUser = new User
                 {
-                    Name = user.Name,
-                    Surname = user.Surname,
-                    Patronymic = user.Patronymic,
                     Login = user.Login,
                     Password = BCrypt.Net.BCrypt.HashPassword(user.Password),
                 };
@@ -53,7 +50,7 @@ namespace _7Assist.Controllers
 
         private bool UserExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.IdUser == id);
         }
 
         public IActionResult Login()

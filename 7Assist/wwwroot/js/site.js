@@ -1,7 +1,7 @@
 ﻿// When running OpenVidu locally, leave these variables empty
 // For other deployment type, configure them with correct URLs depending on your deployment
 var APPLICATION_SERVER_URL = "http://localhost:6080/";
-var LIVEKIT_URL = "wss://haha-1b7hsnu1.livekit.cloud";
+var LIVEKIT_URL = "ws://localhost:7880";//"wss://haha-1b7hsnu1.livekit.cloud";
 configureUrls();
 
 const LivekitClient = window.LivekitClient;
