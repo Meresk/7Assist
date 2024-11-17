@@ -83,6 +83,10 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("password");
         });
 
+        modelBuilder.Entity<User>().HasData(InitialData.UsersList);
+        modelBuilder.Entity<Terminal>().HasData(InitialData.TerminalsList);
+        modelBuilder.Entity<Admin>().HasData(InitialData.AdminsList);
+
         OnModelCreatingPartial(modelBuilder);
     }
 
